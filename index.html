@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Skyloom — Draw a word. Weave a world." />
+  <title>Skyloom</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="table">
+    <header class="hero">
+      <p class="kicker">A POCKETFUL OF POSSIBILITIES</p>
+      <h1>Skyloom</h1>
+      <p class="tagline"><strong>Draw a word. Weave a world.</strong><br>抽取一個詞，編織一個世界。</p>
+    </header>
+
+    <section class="ritual">
+      <div class="draw-source" role="group" aria-label="抽題來源">
+        <span class="source-label">抽題來源</span>
+        <div class="source-switch">
+          <button type="button" data-source="all" aria-pressed="true">全部詞彙</button>
+          <button type="button" data-source="favorites" aria-pressed="false">★ 最愛詞彙</button>
+          <button type="button" data-source="decks" aria-pressed="false">☆ 收藏分類</button>
+        </div>
+      </div>
+      <div class="draw-mode" role="group" aria-label="抽牌方式">
+        <span class="source-label">抽牌方式</span>
+        <div class="mode-switch">
+          <button type="button" data-mode="random" aria-pressed="true">完全隨機</button>
+          <button type="button" data-mode="balanced" aria-pressed="false">分類平衡</button>
+        </div>
+      </div>
+      <p class="mode-hint" id="drawModeHint">目前可用詞彙混合抽取，每個詞機率相同。</p>
+      <label class="distinct-option" id="distinctOption" hidden>
+        <input type="checkbox" id="distinctCategories">
+        <span>抽三張時分別來自不同分類</span>
+      </label>
+      <p id="poolHint" class="pool-hint"></p>
+      <div class="card-zone" id="cardsStage" aria-live="polite">
+        <article class="tarot-card card-back placeholder" aria-label="Skyloom 牌背">
+          <div class="corner corner-tl">✦</div>
+          <div class="corner corner-tr">✦</div>
+          <div class="corner corner-bl">✦</div>
+          <div class="corner corner-br">✦</div>
+          <div class="moon-orbit">
+            <span>☾</span><span>✧</span><span>☽</span>
+          </div>
+          <div class="sigil">S</div>
+          <div class="back-title">SKYLOOM</div>
+        </article>
+      </div>
+
+      <div id="setSaveArea" class="set-save-area" hidden>
+        <div class="set-bracket" aria-hidden="true"></div>
+        <button id="saveSet" class="set-save-button" type="button" aria-pressed="false"></button>
+        <p id="setSaveHint">將這三張一起保存</p>
+      </div>
+
+      <div class="primary-actions">
+        <button class="draw-main" id="drawOne" type="button">DRAW ONE</button>
+        <button class="draw-secondary" id="drawThree" type="button">Draw Three</button>
+      </div>
+
+      <div class="quiet-actions">
+        <button class="text-button" id="settingsButton" type="button">Deck Settings</button>
+        <span aria-hidden="true">·</span>
+        <button class="text-button" id="archiveButton" type="button">Word Archive</button>
+        <span aria-hidden="true">·</span>
+        <button class="text-button" id="collectionsButton" type="button">★ 我的收藏</button>
+      </div>
+
+      <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="year-stats">
+      <span id="drawCount">最近一年抽了 0 張牌</span>
+      <span aria-hidden="true">·</span>
+      <span id="favoriteCount">0 個最愛詞彙</span>
+    </section>
+
+    <footer>
+      <section class="special-thanks" aria-labelledby="thanksTitle">
+        <h2 id="thanksTitle">About the word bank</h2>
+        <p class="bank-note">本頁收錄 17 個分類、720 個繁體中文詞彙。每個詞都可以成為一個新世界的入口。</p>
+      </section>
+      <p>Your creative collection stays in this browser only.<br>紀錄與收藏保存在目前的瀏覽器中；清除網站資料會一併移除。</p>
+      <p class="image-credit">天空照片由 <a href="https://unsplash.com/@enginakyurt" target="_blank" rel="noopener noreferrer">Engin Akyurt</a> 拍攝，刊載於 <a href="https://unsplash.com/photos/white-clouds-under-blue-sky-during-daytime-gJILnne_HFg" target="_blank" rel="noopener noreferrer">Unsplash</a>，依 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a> 使用。</p>
+    </footer>
+  </main>
+
+  <dialog id="settingsDialog" class="sheet" aria-labelledby="settingsTitle">
+    <div class="sheet-inner">
+      <div class="sheet-header">
+        <div>
+          <p class="kicker">WORD SETTINGS</p>
+          <h2 id="settingsTitle">Choose categories</h2>
+        </div>
+        <button class="close-button" data-close="settingsDialog" aria-label="關閉">×</button>
+      </div>
+      <p class="sheet-intro">選擇要加入抽牌池的詞彙分類；設定也會套用到最愛與收藏分類。</p>
+      <div class="deck-options" id="categoryOptions"></div>
+      <label class="deck-picker-label" for="deckPicker">瀏覽詞彙分類</label>
+      <div class="deck-picker-row">
+        <select id="deckPicker"></select>
+        <button id="browseDeck" class="paper-button" type="button">瀏覽分類</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="archiveDialog" class="archive-dialog" aria-labelledby="archiveTitle">
+    <div class="archive-book">
+      <div class="book-header">
+        <div>
+          <p class="kicker">YOUR SKYLOOM YEAR</p>
+          <h2 id="archiveTitle">Word Archive</h2>
+          <p>最近一年的抽卡紀錄</p>
+        </div>
+        <button class="close-button" data-close="archiveDialog" aria-label="關閉">×</button>
+      </div>
+
+      <div class="archive-tabs">
+        <span>最近 365 天</span>
+        <button class="clear-link" id="clearHistory" type="button">Clear history</button>
+      </div>
+
+      <div id="archiveList" class="archive-list"></div>
+    </div>
+  </dialog>
+
+  <dialog id="collectionsDialog" class="archive-dialog" aria-labelledby="collectionsTitle">
+    <div class="archive-book">
+      <div class="book-header">
+        <div><p class="kicker">YOUR SKYLOOM COLLECTION</p><h2 id="collectionsTitle">我的收藏</h2><p>留下靈感，下次再相遇。</p></div>
+        <button class="close-button" data-close="collectionsDialog" aria-label="關閉我的收藏">×</button>
+      </div>
+      <div class="collection-tabs" role="group" aria-label="收藏類別">
+        <button type="button" data-collection="prompts" aria-pressed="true">最愛詞彙</button>
+        <button type="button" data-collection="sets" aria-pressed="false">收藏牌組</button>
+        <button type="button" data-collection="decks" aria-pressed="false">收藏分類</button>
+      </div>
+      <div class="collection-toolbar">
+        <p id="collectionCount"></p>
+        <button id="drawFavorite" class="paper-button primary-paper" type="button">★ 從最愛抽一詞</button>
+        <button id="drawSavedDecks" class="paper-button primary-paper" type="button" hidden>☆ 從收藏分類抽一張</button>
+      </div>
+      <div id="collectionList" class="archive-list"></div>
+      <div id="setUndoNotice" class="set-undo-notice" hidden>
+        <span role="status">已取消牌組收藏，可復原最近一次取消。</span>
+        <button id="undoSetRemoval" type="button">復原</button>
+      </div>
+      <p class="collection-note">收藏不受一年期限影響，也不會隨抽卡紀錄一起清除。</p>
+    </div>
+  </dialog>
+
+  <dialog id="deckDialog" class="archive-dialog" aria-labelledby="deckTitle">
+    <div class="archive-book">
+      <div class="book-header">
+        <div><p class="kicker">EXPLORE A CATEGORY</p><h2 id="deckTitle">分類詞彙</h2><p id="deckMeta"></p></div>
+        <button class="close-button" data-close="deckDialog" aria-label="關閉分類詞彙">×</button>
+      </div>
+      <div class="deck-save-toolbar">
+        <button id="saveDeck" class="paper-button primary-paper" type="button" aria-pressed="false"></button>
+        <p>保存整個分類詞彙清單；單詞星號可另外加入最愛。</p>
+      </div>
+      <div id="deckList" class="archive-list deck-list"></div>
+    </div>
+  </dialog>
+
+  <script src="arcana-store.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
