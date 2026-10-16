@@ -449,6 +449,11 @@ dialog{max-height:90vh;max-height:90dvh;overflow:auto}
 .deck-picker-row{display:flex;gap:10px;margin-top:10px;align-items:center}
 #deckPicker{flex:1;min-width:0;max-width:100%;padding:10px 8px;border:1px solid #b9a784;background:#f5eedf;color:#44331c;font:inherit;font-size:.82rem}
 .deck-picker-row .paper-button{flex-shrink:0}
+.data-transfer{margin-top:26px;padding-top:18px;border-top:1px solid rgba(54,119,141,.22)}
+.data-transfer h3{margin:0;color:#244f60;font-size:1rem;font-weight:500}
+.data-transfer>p{color:#54717b;font-size:.82rem;line-height:1.7}
+.data-transfer-actions{display:flex;gap:10px;flex-wrap:wrap}
+.data-transfer-status{min-height:1.5em;margin-bottom:0}
 @media(max-width:760px){
   .ritual{padding-top:26px}
   .source-switch{max-width:100%;flex-wrap:wrap;justify-content:center}
@@ -466,6 +471,7 @@ dialog{max-height:90vh;max-height:90dvh;overflow:auto}
   .collection-row{gap:10px}
   .archive-list{max-height:48vh}
   .deck-save-toolbar .paper-button{width:100%}
+  .data-transfer-actions .paper-button{flex:1}
   .saved-set-prompt{grid-template-columns:24px minmax(0,1fr);gap:8px}
   .saved-set-text{font-size:1rem}
 }

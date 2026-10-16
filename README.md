@@ -1,9 +1,11 @@
-# Skyloom
+﻿# Skyloom
 
 **Draw a word. Weave a world.**
 抽取一個詞，編織一個世界。
 
 Skyloom 是一個以天空為靈感的詞彙抽牌工具，適合寫作、繪畫、漫畫、OC／CP 與各種自由創作。從日常詞彙出發，抽取一個詞，編織一個世界。
+
+Repository: https://github.com/ruruwu/skyloom
 
 本版使用 `everyday_prompt_bank_v2_zh_tw.json`，收錄 17 個分類、720 個繁體中文詞彙。保留單詞最愛、牌組收藏、分類收藏與抽牌紀錄功能。使用純 HTML、CSS 與 JavaScript，無須安裝套件或建立帳號。
 
@@ -59,14 +61,16 @@ Skyloom 是一個以天空為靈感的詞彙抽牌工具，適合寫作、繪畫
 - **Clear history** 只清除抽卡紀錄，三種收藏與分類設定都會保留。
 - 紀錄、收藏與設定存放在目前瀏覽器的 `localStorage`，不會由程式上傳或跨裝置同步。
 - 清除瀏覽器網站資料會移除收藏；換瀏覽器、搬移本機 HTML，或改用不同網址時，不一定能讀到原有資料。
-- 目前沒有匯出、匯入或雲端備份功能；「收藏」代表保存在瀏覽器內，不是下載檔案。
+- 首次使用新版時，會自動從同一網站來源的 `creativeArcana.library.v3` 篩出 Skyloom 資料，合併去重後存入 `skyloom.library.v1`。資料與 `migrationVersion: 1` 標記一起寫入成功後，往後開啟只讀取 Skyloom key，不再自動合併舊 key；原始 CA key 不會修改。已有 SL 時保留其分類設定；尚無 SL 時採用舊資料中的有效 Skyloom 分類設定，否則使用新版預設。明確取消全部分類的空設定會保留。
+- 載入 SL、自動遷移及手動匯入都只接受目前 Skyloom 分類 ID（`c01`～`c17`）及有效資料格式；非 Skyloom 或損壞的項目會排除。牌組或紀錄只要包含非 Skyloom 或損壞的卡片，就整筆排除。缺少的 categoryId 會依 deckId 補齊，不一致的 categoryId 會排除。JSON 無法解析或頂層資料結構不完整時，會暫停儲存以保護來源資料；自動遷移寫入失敗不會標記完成，下次開啟會重試。
+- 在 **我的收藏 → 資料備份與搬移** 可下載 JSON 備份，或合併匯入備份中的 Skyloom 資料。若同一網站來源仍有 `creativeArcana.library.v3`，下載檔會另外包含該 key 的完整內容以供救援；手動匯入仍會忽略 legacyData／legacyRaw。匯入只有 Arcana 分類設定時會保留目前設定。
+- 若要跨網址搬移，請先在舊網站匯出其儲存資料 JSON，再於 Skyloom 匯入。瀏覽器不允許不同網站直接讀取彼此的 `localStorage`；舊網站需要提供匯出功能。
+- 備份檔包含收藏與抽卡紀錄，請妥善保管；Skyloom 不會上傳備份。
 - 儲存失敗時會提示，避免將未成功保存的操作顯示為已完成。
 
-### 舊版資料相容
+### 資料隔離
 
-新版使用 `creativeArcana.library.v3` 儲存資料。尚無新版資料時，會讀取同一儲存位置中的 `creativeArcana.history.v2`，承接仍存在的紀錄與牌組收藏，並於下一次成功儲存時寫入新版資料；原本的舊版資料不會被覆寫。
-
-若原有資料無法讀取，程式會暫停儲存，避免覆蓋既有收藏。已被舊版刪除的過期紀錄無法恢復。
+Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修改其他專案的收藏與紀錄。資料仍只保存在目前瀏覽器的網站儲存空間。
 
 ## 題庫
 
@@ -79,11 +83,9 @@ Skyloom 是一個以天空為靈感的詞彙抽牌工具，適合寫作、繪畫
 ├── index.html                 # 頁面、彈窗與關於題庫
 ├── style.css                  # 天空色系、卡片、收藏清單與響應式樣式
 ├── app.js                     # JSON 載入、抽牌互動與收藏介面
-├── arcana-store.js            # 儲存、分類篩選與兩種抽樣規則
+├── skyloom-store.js           # 儲存、分類篩選與兩種抽樣規則
 ├── everyday_prompt_bank_v2_zh_tw.json # 17 類、720 個詞彙
-├── README.md
-└── tests/
-    └── arcana-store.test.js    # 資料與抽題邏輯測試
+└── README.md
 ```
 
 執行網站需要以上檔案，請保持在同一層目錄。沒有額外建置步驟，也不需要 `npm install`。
@@ -102,15 +104,12 @@ Skyloom 是一個以天空為靈感的詞彙抽牌工具，適合寫作、繪畫
 
 ## 開發與檢查
 
-測試使用 Node.js 內建測試工具，無須第三方測試套件。可使用 Node.js 22 執行：
+可使用 Node.js 22 檢查 JavaScript 語法：
 
 ```sh
 node --check app.js
-node --check arcana-store.js
-node --test tests/arcana-store.test.js
+node --check skyloom-store.js
 ```
-
-目前有 17 項邏輯測試，涵蓋舊收藏承接、分類遷移、三種收藏獨立性、分類篩選、隨機抽樣、分類平衡、異類抽取、720 個唯一詞彙與儲存失敗。
 
 瀏覽器手動驗收流程：
 

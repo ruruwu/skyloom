@@ -20,7 +20,7 @@ function loadPromptBank() {
   });
 }
 loadPromptBank().then(DATA => {
-const { createStore, cardKey, deckCards, poolFor, sample, sampleBalanced } = window.ArcanaStore;
+const { createStore, cardKey, deckCards, poolFor, sample, sampleBalanced } = window.SkyloomStore;
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 // Access storage lazily so restricted browser contexts produce a useful error.
@@ -299,6 +299,41 @@ $("#saveDeck").addEventListener("click", () => {
   change(() => store.toggleDeck(currentDeck), saved ? "已取消分類收藏。" : `★ 已收藏此分類，共 ${currentDeck.items.length} 個詞。`);
 });
 $("#settingsButton").addEventListener("click", () => openDialog("settingsDialog"));
+$("#exportData").addEventListener("click", () => {
+  try {
+    const backup = store.exportBackup();
+    const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" }));
+    const link = element("a");
+    link.href = url; link.download = `skyloom-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const legacyNote = backup.legacyData || backup.legacyRaw ? "（含舊版資料）" : "";
+    $("#dataTransferStatus").textContent = `備份已下載${legacyNote}。請將 JSON 檔保存在安全的位置。`;
+  } catch {
+    $("#dataTransferStatus").textContent = "無法建立備份，請檢查瀏覽器下載設定。";
+  }
+});
+$("#chooseImport").addEventListener("click", () => $("#importFile").click());
+$("#importFile").addEventListener("change", async event => {
+  const input = event.currentTarget, file = input.files?.[0];
+  if (!file) return;
+  try {
+    const backup = JSON.parse(await file.text());
+    const confirmed = confirm("要合併這份備份嗎？現有收藏不會被覆蓋；分類設定會改用備份中的設定。");
+    if (!confirmed) return;
+    const counts = store.importData(backup);
+    lastRemovedSet = null;
+    refresh();
+    const summary = `匯入完成：${counts.prompts} 個最愛、${counts.sets} 組牌組、${counts.decks} 個分類、${counts.history} 筆近期紀錄。`;
+    $("#dataTransferStatus").textContent = summary;
+    announce(summary);
+  } catch (error) {
+    $("#dataTransferStatus").textContent = error.message || "無法讀取此檔案，請選擇有效的 Skyloom 或舊版備份 JSON。";
+    announce($("#dataTransferStatus").textContent, true);
+  } finally {
+    input.value = "";
+  }
+});
 $("#archiveButton").addEventListener("click", () => { renderArchive(); openDialog("archiveDialog"); });
 $("#collectionsButton").addEventListener("click", () => { renderCollections(); openDialog("collectionsDialog"); });
 $$("[data-close]").forEach(node => node.addEventListener("click", () => document.getElementById(node.dataset.close).close()));

@@ -84,7 +84,7 @@
         <h2 id="thanksTitle">About the word bank</h2>
         <p class="bank-note">本頁收錄 17 個分類、720 個繁體中文詞彙。每個詞都可以成為一個新世界的入口。</p>
       </section>
-      <p>Your creative collection stays in this browser only.<br>紀錄與收藏保存在目前的瀏覽器中；清除網站資料會一併移除。</p>
+      <p>Your Skyloom collection stays in this browser only.<br>紀錄與收藏保存在目前的瀏覽器中；清除網站資料會一併移除。</p>
       <p class="image-credit">天空照片由 <a href="https://unsplash.com/@enginakyurt" target="_blank" rel="noopener noreferrer">Engin Akyurt</a> 拍攝，刊載於 <a href="https://unsplash.com/photos/white-clouds-under-blue-sky-during-daytime-gJILnne_HFg" target="_blank" rel="noopener noreferrer">Unsplash</a>，依 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a> 使用。</p>
     </footer>
   </main>
@@ -150,6 +150,16 @@
         <button id="undoSetRemoval" type="button">復原</button>
       </div>
       <p class="collection-note">收藏不受一年期限影響，也不會隨抽卡紀錄一起清除。</p>
+      <section class="data-transfer" aria-labelledby="dataTransferTitle">
+        <h3 id="dataTransferTitle">資料備份與搬移</h3>
+        <p>下載收藏與紀錄備份；若此瀏覽器仍有舊版資料，也會一併備份。匯入不會覆蓋現有收藏。</p>
+        <div class="data-transfer-actions">
+          <button id="exportData" class="paper-button" type="button">下載備份</button>
+          <button id="chooseImport" class="paper-button" type="button">匯入備份</button>
+          <input id="importFile" type="file" accept=".json,application/json" hidden>
+        </div>
+        <p id="dataTransferStatus" class="data-transfer-status" role="status" aria-live="polite"></p>
+      </section>
     </div>
   </dialog>
 
@@ -167,7 +177,7 @@
     </div>
   </dialog>
 
-  <script src="arcana-store.js"></script>
+  <script src="skyloom-store.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
