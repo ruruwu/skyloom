@@ -61,7 +61,7 @@ Repository: https://github.com/ruruwu/skyloom
 - **Clear history** 只清除抽卡紀錄，三種收藏與分類設定都會保留。
 - 紀錄、收藏與設定存放在目前瀏覽器的 `localStorage`，不會由程式上傳或跨裝置同步。
 - 清除瀏覽器網站資料會移除收藏；換瀏覽器、搬移本機 HTML，或改用不同網址時，不一定能讀到原有資料。
-- 首次使用新版時，會自動從同一網站來源的 `creativeArcana.library.v3` 篩出 Skyloom 資料，合併去重後存入 `skyloom.library.v1`。資料與 `migrationVersion: 1` 標記一起寫入成功後，往後開啟只讀取 Skyloom key，不再自動合併舊 key；原始 CA key 不會修改。已有 SL 時保留其分類設定；尚無 SL 時採用舊資料中的有效 Skyloom 分類設定，否則使用新版預設。明確取消全部分類的空設定會保留。
+- 優先使用有效的 `skyloom.library.v1`，包括尚未帶有遷移標記的空白收藏，不自動合併舊資料。尚無新版資料時，依序從 `creativeArcana.library.v3`、`creativeArcana.recovery.original.v1` 篩出 Skyloom 資料；前者解析失敗或沒有有效 Skyloom 內容時，繼續檢查後者。兩個來源均為唯讀。沿用既有分類 ID 與格式驗證；有效分類設定也算可復原內容，但預設分類不算。復原或初始化結果與 `migrationVersion: 1` 一起寫入，失敗不標記完成，可重新載入重試。新版 key 損壞時保留原文並暫停儲存，避免覆寫。
 - 載入 SL、自動遷移及手動匯入都只接受目前 Skyloom 分類 ID（`c01`～`c17`）及有效資料格式；非 Skyloom 或損壞的項目會排除。牌組或紀錄只要包含非 Skyloom 或損壞的卡片，就整筆排除。缺少的 categoryId 會依 deckId 補齊，不一致的 categoryId 會排除。JSON 無法解析或頂層資料結構不完整時，會暫停儲存以保護來源資料；自動遷移寫入失敗不會標記完成，下次開啟會重試。
 - 在 **我的收藏 → 資料備份與搬移** 可下載 JSON 備份，或合併匯入備份中的 Skyloom 資料。若同一網站來源仍有 `creativeArcana.library.v3`，下載檔會另外包含該 key 的完整內容以供救援；手動匯入仍會忽略 legacyData／legacyRaw。匯入只有 Arcana 分類設定時會保留目前設定。
 - 若要跨網址搬移，請先在舊網站匯出其儲存資料 JSON，再於 Skyloom 匯入。瀏覽器不允許不同網站直接讀取彼此的 `localStorage`；舊網站需要提供匯出功能。

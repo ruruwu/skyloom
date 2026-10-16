@@ -2,6 +2,7 @@
   "use strict";
   const KEY = "skyloom.library.v1";
   const LEGACY_KEY = "creativeArcana.library.v3";
+  const RECOVERY_KEY = "creativeArcana.recovery.original.v1";
   const YEAR = 365 * 24 * 60 * 60 * 1000;
   const GROUPS = ["general", "romance", "dark", "adult"];
   const skyloomId = id => typeof id === "string" && /^c(?:0[1-9]|1[0-7])$/.test(id);
@@ -52,18 +53,32 @@
     try {
       const saved = storage.getItem(KEY);
       const original = saved === null ? null : JSON.parse(saved);
-      state = original === null ? empty() : cleanLibrary(original, defaultGroups);
-      if (original?.migrationVersion !== 1) {
-        const legacy = storage.getItem(LEGACY_KEY);
-        const incoming = legacy === null ? empty() : cleanLibrary(JSON.parse(legacy), defaultGroups);
-        // Existing SL settings win; otherwise preserve valid legacy SL settings.
-        if (original === null) state.groups = incoming.groups;
-        state = mergeLibraries(state, incoming);
-      } else state.migrationVersion = 1;
+      state = saved === null ? empty() : cleanLibrary(original, defaultGroups);
+      // A valid dedicated library, including an intentionally empty one, wins.
+      if (original === null) {
+        let sourceError;
+        for (const key of [LEGACY_KEY, RECOVERY_KEY]) {
+          try {
+            const raw = storage.getItem(key);
+            if (raw === null) continue;
+            const parsed = JSON.parse(raw);
+            const incoming = cleanLibrary(parsed, defaultGroups);
+            // Fallback groups are defaults, not evidence of Skyloom ownership.
+            const hasData = ["history", "prompts", "sets", "decks"].some(name => incoming[name].length) || parsed.groups.some(skyloomId);
+            if (!hasData) continue;
+            state = incoming;
+            sourceError = undefined;
+            break;
+          } catch (error) { sourceError = error; }
+        }
+        if (sourceError) throw sourceError;
+      }
+      state.migrationVersion = 1;
       // Data and completion marker are saved atomically. Failed writes retry on reload.
       if (JSON.stringify(state) !== saved) storage.setItem(KEY, JSON.stringify(state));
     } catch {
-      state = empty();
+      state = state || empty();
+      delete state.migrationVersion;
       loadError = true;
     }
     function snapshot() {
