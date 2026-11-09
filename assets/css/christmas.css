@@ -9,7 +9,7 @@ html[data-theme="christmas"]{
   --shadow:0 22px 60px rgba(59,64,38,.2);
 }
 html[data-theme="christmas"] body{
-  background:linear-gradient(180deg,rgba(255,248,230,.52),rgba(255,248,233,.72)),url("skyloom-christmas.jpg") center top / cover fixed no-repeat;
+  background:linear-gradient(180deg,rgba(255,248,230,.52),rgba(255,248,233,.72)),url("../images/skyloom-christmas.jpg") center top / cover fixed no-repeat;
 }
 html[data-theme="christmas"] .hero{position:relative}
 html[data-theme="christmas"] .hero::before{content:"✧  ❄  ✧";display:block;margin-bottom:16px;color:#89622f;font-size:1.1rem;letter-spacing:.6em}

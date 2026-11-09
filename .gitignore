@@ -17,6 +17,8 @@ node_modules/
 *.swp
 *~
 coverage/
+__pycache__/
+*.pyc
 
 # Accidental terminal help export
 /t.json slall.json

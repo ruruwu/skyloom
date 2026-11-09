@@ -1,5 +1,5 @@
 const assert = require('node:assert/strict');
-const { createStore } = require('../skyloom-store');
+const { createStore } = require('../assets/js/skyloom-store');
 const values = new Map();
 const storage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
 const store = createStore(storage, undefined, ['c01']);

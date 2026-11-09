@@ -1,5 +1,5 @@
 const assert = require('node:assert/strict');
-const { createStore, KEY, poolFor } = require('../skyloom-store');
+const { createStore, KEY, poolFor } = require('../assets/js/skyloom-store');
 const LEGACY = 'creativeArcana.library.v3';
 const now = Date.parse('2026-10-17T00:00:00Z');
 const card = { deckId: 'c14', categoryId: 'c14', source: '植物', group: 'general', number: 31, prompt: '仙人掌' };

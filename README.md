@@ -7,7 +7,7 @@ Skyloom 是一個以天空為靈感的詞彙抽牌工具，適合寫作、繪畫
 
 Repository: https://github.com/ruruwu/skyloom
 
-本版使用 `everyday_prompt_bank_v2_zh_tw.json`，收錄 17 個日常分類（720 詞）及聖誕節主題（100 詞），合計 18 個分類、820 筆詞彙。保留單詞最愛、牌組收藏、分類收藏與抽牌紀錄功能。使用純 HTML、CSS 與 JavaScript，無須安裝套件或建立帳號。
+本版使用 `data/prompt-bank.json`，收錄 17 個日常分類（720 詞）及聖誕節主題（100 詞），合計 18 個分類、820 筆詞彙。保留單詞最愛、牌組收藏、分類收藏與抽牌紀錄功能。使用純 HTML、CSS 與 JavaScript，無須安裝套件或建立帳號。
 
 ## 開始使用
 
@@ -37,7 +37,7 @@ Repository: https://github.com/ruruwu/skyloom
 
 物品、情緒、顏色、場所、天氣、感官、自然、動作、時間、形狀與材質、食物、服飾、動物、植物、職業、交通工具、抽象概念。
 
-「聖誕節（Christmas）」為 `c18`，完整收錄 `christmas_3tag_100.txt` 的 100 詞，預設關閉。可在同一分類清單自行啟用，與其他分類混合抽取。選擇沿用 localStorage 的 `groups` 陣列保存；舊設定沒有 `c18` 時保持關閉，不重設其他分類，也不依日期切換。
+「聖誕節（Christmas）」為 `c18`，完整收錄 `data/sources/christmas_3tag_100.txt` 的 100 詞，預設關閉。可在同一分類清單自行啟用，與其他分類混合抽取。選擇沿用 localStorage 的 `groups` 陣列保存；舊設定沒有 `c18` 時保持關閉，不重設其他分類，也不依日期切換。
 
 介面會顯示目前可抽的詞數。若已收藏詞彙卻無法抽出，可先檢查分類是否開啟。
 
@@ -78,31 +78,42 @@ Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修�
 
 在 **Deck Settings → 外觀** 可切換「天空」與「聖誕節」。未曾選擇時先顯示聖誕節主題；選擇保存於獨立的 `skyloom.theme.v1`，不影響題庫啟用狀態、收藏或紀錄，也不依日期自動切換。外觀設定只保存在目前瀏覽器，不包含於收藏備份。
 
-原版 `style.css` 與 `skyloom-sky.jpg` 保留不變；節慶樣式獨立放在 `christmas.css`，由 `theme.js` 切換。聖誕背景 `skyloom-christmas.jpg` 為 Harri P 的冬季晨光雪林照片，依 Unsplash License 使用，頁尾會隨外觀顯示對應的照片來源。
+原版 `assets/css/style.css` 與 `assets/images/skyloom-sky.jpg` 保留不變；節慶樣式獨立放在 `assets/css/christmas.css`，由 `assets/js/theme.js` 切換。聖誕背景 `assets/images/skyloom-christmas.jpg` 為 Harri P 的冬季晨光雪林照片，依 Unsplash License 使用，頁尾會隨外觀顯示對應的照片來源。
 
 ## 題庫內容
 
-分享封面提供 `share-sky.jpg` 與 `share-christmas.jpg`（1200 × 630）。目前 `index.html` 的 Open Graph 與 Twitter 分享資訊使用聖誕版；節慶結束後可將兩個 image 網址改為 `share-sky.jpg`，並同步更新 image:alt 與分享簡介。分享縮圖為固定資訊，不跟隨瀏覽器外觀設定。平台可能快取舊縮圖。兩張封面沿用上述照片，來源與授權見頁尾；可在有 Pillow 及 Windows 字型的環境執行 `python tests/generate-share-covers.py` 重新產生。
+分享封面提供 `assets/social/share-sky.jpg` 與 `assets/social/share-christmas.jpg`（1200 × 630）。目前 `index.html` 的 Open Graph 與 Twitter 分享資訊使用聖誕版；節慶結束後可將兩個 image 網址改為 `assets/social/share-sky.jpg`，並同步更新 image:alt 與分享簡介。分享縮圖為固定資訊，不跟隨瀏覽器外觀設定。平台可能快取舊縮圖。兩張封面沿用上述照片，來源與授權見頁尾；可在有 Pillow 及 Windows 字型的環境執行 `python scripts/generate-share-covers.py` 重新產生。
 
-正式題庫是 `everyday_prompt_bank_v2_zh_tw.json`，含 **17 個日常分類、720 個不重複詞彙**，另加聖誕節主題 100 詞（共 18 類、820 筆，跨分類允許相同詞彙）。頁面以此 JSON 為唯一題庫來源，並將每個分類轉成可瀏覽、收藏和抽取的牌組。天空背景圖 `skyloom-sky.jpg` 由 Engin Akyurt 拍攝，依 Unsplash License 使用；頁尾附照片與授權連結。
+正式題庫是 `data/prompt-bank.json`，含 **17 個日常分類、720 個不重複詞彙**，另加聖誕節主題 100 詞（共 18 類、820 筆，跨分類允許相同詞彙）。頁面以此 JSON 為唯一題庫來源，並將每個分類轉成可瀏覽、收藏和抽取的牌組。天空背景圖 `assets/images/skyloom-sky.jpg` 由 Engin Akyurt 拍攝，依 Unsplash License 使用；頁尾附照片與授權連結。
 
 ## 專案結構
 
 ```text
 .
-├── index.html                 # 頁面、彈窗與關於題庫
-├── style.css                  # 天空色系、卡片、收藏清單與響應式樣式
-├── app.js                     # JSON 載入、抽牌互動與收藏介面
-├── skyloom-store.js           # 儲存、分類篩選與兩種抽樣規則
-├── everyday_prompt_bank_v2_zh_tw.json # 18 類、820 筆詞彙
-└── README.md
+├── index.html                 # 網站入口
+├── README.md                  # 使用與維護說明
+├── .gitignore                 # 本機暫存與個人設定排除規則
+├── assets/
+│   ├── css/                   # style.css 原版、christmas.css 節慶樣式
+│   ├── js/                    # app.js 互動、skyloom-store.js 儲存、theme.js 外觀
+│   ├── images/                # 天空與雪林背景
+│   ├── icons/                 # 兩款 favicon
+│   └── social/                # 兩張分享封面
+├── data/
+│   ├── prompt-bank.json       # 正式題庫：18 類、820 筆詞彙
+│   └── sources/               # 原始 TXT；聖誕來源也供測試核對
+├── docs/
+│   └── RECOVERY_REPORT.md     # 歷史資料復原報告
+├── scripts/
+│   └── generate-share-covers.py # 分享封面產生工具
+└── tests/                     # 抽題、儲存、遷移、主題與資源路徑測試
 ```
 
-執行網站需要以上檔案，請保持在同一層目錄。沒有額外建置步驟，也不需要 `npm install`。
+執行網站需要 `index.html`、`assets/` 與 `data/prompt-bank.json`，請保留資料夾相對位置。沒有額外建置步驟，也不需要 `npm install`。`data/sources/`、`docs/`、`scripts/` 與 `tests/` 用於維護，不是網站執行時載入的資源；仍保留在 GitHub 以利追蹤來源及驗證。歷史報告中的舊路徑為當時的驗證紀錄。
 
 ## 發布到 GitHub Pages
 
-1. 將上述專案檔案上傳至 GitHub repository 根目錄，確認 `index.html` 不在額外的子資料夾內。
+1. 將專案連同資料夾結構上傳至 GitHub repository，確認 `index.html` 位於根目錄。
 2. 進入 repository 的 **Settings → Pages**。
 3. 在 **Build and deployment → Source** 選擇 **Deploy from a branch**。
 4. 選擇檔案所在分支（例如 `main`）與 **/(root)**，按下 **Save**。
@@ -117,10 +128,15 @@ Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修�
 可使用 Node.js 22 檢查 JavaScript 語法：
 
 ```sh
-node --check app.js
-node --check skyloom-store.js
+node --check assets/js/app.js
+node --check assets/js/skyloom-store.js
+node --check assets/js/theme.js
 node tests/christmas.test.js
 node tests/theme.test.js
+node tests/migration.test.js
+node tests/import-isolation.test.js
+node tests/recovery.test.js
+node tests/resource-paths.test.js
 ```
 
 瀏覽器手動驗收流程：
@@ -135,4 +151,4 @@ node tests/theme.test.js
 
 邏輯測試不涵蓋瀏覽器實際渲染與視覺排版。
 
-題庫資料來源為專案中的 `everyday_prompt_bank_v2_zh_tw.json`。
+題庫資料來源為專案中的 `data/prompt-bank.json`。

@@ -1,5 +1,5 @@
 const assert = require('node:assert/strict');
-const { createStore, KEY } = require('../skyloom-store');
+const { createStore, KEY } = require('../assets/js/skyloom-store');
 // Run with the local Creative Arcana implementation to verify its actual backup.
 const arcanaPath = process.argv[2];
 const arcanaStore = arcanaPath ? require(arcanaPath) : null;

@@ -1,8 +1,8 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const { createStore, KEY, poolFor, sample, sampleBalanced, cardKey } = require('../skyloom-store');
-const bank = require('../everyday_prompt_bank_v2_zh_tw.json');
-const words = fs.readFileSync(require.resolve('../christmas_3tag_100.txt'), 'utf8').split(/\r?\n/);
+const { createStore, KEY, poolFor, sample, sampleBalanced, cardKey } = require('../assets/js/skyloom-store');
+const bank = require('../data/prompt-bank.json');
+const words = fs.readFileSync(require.resolve('../data/sources/christmas_3tag_100.txt'), 'utf8').split(/\r?\n/);
 if (words.at(-1) === '') words.pop();
 const christmas = bank.categories.find(category => category.id === 'c18');
 assert.equal(words.length, 100);

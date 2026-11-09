@@ -17,7 +17,7 @@ html,body{min-height:100%}
 body{
   margin:0;
   color:var(--ivory);
-  background:linear-gradient(180deg,rgba(235,248,255,.52),rgba(215,238,245,.66)),url("skyloom-sky.jpg") center 35% / cover fixed no-repeat;
+  background:linear-gradient(180deg,rgba(235,248,255,.52),rgba(215,238,245,.66)),url("../images/skyloom-sky.jpg") center 35% / cover fixed no-repeat;
   font-family:"Avenir Next","Noto Sans TC","PingFang TC",sans-serif;
 }
 body::before{

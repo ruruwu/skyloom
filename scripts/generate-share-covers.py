@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FONT = Path('C:/Windows/Fonts')
 
 def render(theme, source, ink, accent, overlay):
-    image = ImageOps.fit(Image.open(ROOT / source).convert('RGB'), (1200, 630), centering=(0.5, 0.25)).convert('RGBA')
+    image = ImageOps.fit(Image.open(ROOT / 'assets' / 'images' / source).convert('RGB'), (1200, 630), centering=(0.5, 0.25)).convert('RGBA')
     image = Image.alpha_composite(image, Image.new('RGBA', image.size, overlay))
     draw = ImageDraw.Draw(image)
     draw.rounded_rectangle((34, 34, 1166, 596), radius=12, outline=accent, width=2)
@@ -25,7 +25,7 @@ def render(theme, source, ink, accent, overlay):
     else:
         draw.line((548, 476, 652, 476), fill=accent, width=2)
         draw.polygon([(600, 466), (603, 473), (610, 476), (603, 479), (600, 486), (597, 479), (590, 476), (597, 473)], fill=accent)
-    image.convert('RGB').save(ROOT / f'share-{theme}.jpg', quality=92, optimize=True)
+    image.convert('RGB').save(ROOT / 'assets' / 'social' / f'share-{theme}.jpg', quality=92, optimize=True)
 
 render('sky', 'skyloom-sky.jpg', '#173f50', '#95623c', (235, 248, 255, 150))
 render('christmas', 'skyloom-christmas.jpg', '#234b39', '#88612e', (255, 248, 230, 165))

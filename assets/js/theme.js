@@ -8,7 +8,7 @@
   } catch { /* The theme still works when browser storage is unavailable. */ }
   function applyTheme() {
     document.documentElement.dataset.theme = theme;
-    document.getElementById("themeFavicon").setAttribute("href", `favicon-${theme}.svg`);
+    document.getElementById("themeFavicon").setAttribute("href", `assets/icons/favicon-${theme}.svg`);
   }
   applyTheme();
   document.addEventListener("DOMContentLoaded", () => {

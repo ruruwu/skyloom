@@ -1,6 +1,6 @@
 "use strict";
 function loadPromptBank() {
-  return fetch("everyday_prompt_bank_v2_zh_tw.json").then(response => {
+  return fetch("data/prompt-bank.json").then(response => {
     if (!response.ok) throw new Error("無法載入日常靈感詞庫 JSON。");
     return response.json();
   }).then(bank => {
