@@ -1,0 +1,69 @@
+/* The original sky palette lives in style.css. All holiday overrides are scoped. */
+.theme-control{display:flex;align-items:center;gap:16px;margin-top:22px;color:var(--ink);font-size:.9rem}
+.theme-control select{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--muted);border-radius:3px;background:var(--paper);color:var(--ink);font:inherit}
+.theme-status{font-size:.78rem;line-height:1.6;color:var(--muted)}
+.theme-status:empty{display:none}
+html[data-theme="christmas"]{
+  --velvet:#f5eddd;--velvet-2:#e8dbc1;--gold:#89622f;--gold-soft:#785127;
+  --ivory:#23483b;--paper:#fffaf0;--ink:#293e33;--muted:#62664d;--wine:#944b46;
+  --shadow:0 22px 60px rgba(59,64,38,.2);
+}
+html[data-theme="christmas"] body{
+  background:linear-gradient(180deg,rgba(255,248,230,.52),rgba(255,248,233,.72)),url("skyloom-christmas.jpg") center top / cover fixed no-repeat;
+}
+html[data-theme="christmas"] .hero{position:relative}
+html[data-theme="christmas"] .hero::before{content:"✧  ❄  ✧";display:block;margin-bottom:16px;color:#89622f;font-size:1.1rem;letter-spacing:.6em}
+html[data-theme="christmas"] h1{color:#23483b;text-shadow:0 2px 18px rgba(255,250,235,.8)}
+html[data-theme="christmas"] :is(.tagline,.tagline strong,.source-label,.mode-hint,.pool-hint,.helper,.year-stats,.quiet-actions,footer,.special-thanks,.image-credit,.set-save-area p){color:#405647}
+html[data-theme="christmas"] :is(.source-switch,.mode-switch){border-color:#9c9872;background:rgba(255,250,240,.82)}
+html[data-theme="christmas"] :is(.source-switch button,.mode-switch button){color:#36533f}
+html[data-theme="christmas"] :is(.source-switch button,.mode-switch button)[aria-pressed="true"]{background:#345c46;color:#fffaf0;box-shadow:inset 0 0 0 1px rgba(231,208,153,.4)}
+html[data-theme="christmas"] .distinct-option{border-color:#a7a17c;background:rgba(255,250,240,.8);color:#36533f}
+html[data-theme="christmas"] input{accent-color:#345c46}
+html[data-theme="christmas"] .tarot-card{border-color:#8f7848;background:linear-gradient(145deg,#fffdf5,#f6eedc);border-radius:5px}
+html[data-theme="christmas"] .tarot-card::before{border-color:rgba(52,92,70,.55)}
+html[data-theme="christmas"] .tarot-card::after{border-color:rgba(155,119,58,.3)}
+html[data-theme="christmas"] .card-back{display:grid;grid-template-rows:1fr 126px 1fr;justify-items:center;align-items:center;height:420px;background:radial-gradient(ellipse at 50% 20%,rgba(222,195,123,.12),transparent 60%),linear-gradient(145deg,#365e46,#193c30);color:#f8e4ae}
+html[data-theme="christmas"] .card-back::before,html[data-theme="christmas"] .card-back::after{border-color:rgba(231,208,153,.6)}
+html[data-theme="christmas"] .card-back :is(.corner,.moon-orbit,.sigil,.back-title){color:#edd49a;border-color:#cfb478}
+html[data-theme="christmas"] .card-back .sigil::before,html[data-theme="christmas"] .card-back .sigil::after{border-color:rgba(231,208,153,.45)}
+html[data-theme="christmas"] .card-back .sigil{margin:0}
+html[data-theme="christmas"] .card-back .back-title{margin:0}
+html[data-theme="christmas"] .moon-orbit{display:block;margin:0;font-size:0}
+html[data-theme="christmas"] .moon-orbit span{display:none}
+html[data-theme="christmas"] .moon-orbit::after{content:"✧  ❄  ✧";font-size:1.35rem;letter-spacing:.25em}
+html[data-theme="christmas"] .drawn-card :is(.corner,.card-symbol){color:#986641}
+html[data-theme="christmas"] .drawn-card :is(.card-number,.card-source,.source-caption){color:#62664d}
+html[data-theme="christmas"] .draw-main{background:#345c46;border-color:#345c46;color:#fffaf0;box-shadow:0 5px 18px rgba(34,65,45,.14)}
+html[data-theme="christmas"] .draw-main:hover{background:#254b38}
+html[data-theme="christmas"] :is(.draw-secondary,.text-button){color:#34533e}
+html[data-theme="christmas"] .draw-secondary{border-bottom-color:#9c8454}
+html[data-theme="christmas"] :is(#collectionsButton,.image-credit a,.special-thanks a,.status-message){color:#88433e}
+html[data-theme="christmas"] .status-message.error{color:#91352f}
+html[data-theme="christmas"] .favorite-button{border-color:#ad7669;color:#88433e}
+html[data-theme="christmas"] .favorite-button.saved{background:#f2ddd0;border-color:#a9685c;color:#733b35}
+html[data-theme="christmas"] .set-save-button{border-color:#8f7848;background:rgba(255,250,240,.8);color:#36533f}
+html[data-theme="christmas"] .set-save-button.saved{background:#345c46;color:#fffaf0}
+html[data-theme="christmas"] :is(.set-bracket,.set-bracket::after){border-color:#8f7848}
+html[data-theme="christmas"] footer{border-color:rgba(113,105,65,.3)}
+html[data-theme="christmas"] dialog{background:#fffaf0;border-color:#9c8454}
+html[data-theme="christmas"] dialog::backdrop{background:rgba(32,48,34,.48)}
+html[data-theme="christmas"] .archive-book{background:linear-gradient(90deg,rgba(173,135,66,.06),transparent 10%,transparent 90%,rgba(173,135,66,.06)),#fffaf0}
+html[data-theme="christmas"] :is(.sheet-intro,.book-header p,.deck-option small,.archive-meta,.collection-note,.deck-save-toolbar p,.data-transfer>p){color:#62664d}
+html[data-theme="christmas"] .close-button{border-color:#b7ae8b;color:#34533e}
+html[data-theme="christmas"] .deck-option{border-color:#d7ceb3;background:#f4f1e4}
+html[data-theme="christmas"] :is(.collection-tabs,.collection-row,.deck-prompt-row,.deck-save-toolbar,.data-transfer){border-color:#d7ceb3}
+html[data-theme="christmas"] .collection-tabs button{color:#62664d}
+html[data-theme="christmas"] .collection-tabs button[aria-pressed="true"]{border-color:#944b46;color:#293e33}
+html[data-theme="christmas"] .paper-button{border-color:#879879;color:#34533e}
+html[data-theme="christmas"] .primary-paper{background:#345c46;color:#fffaf0;border-color:#345c46}
+html[data-theme="christmas"] .primary-paper[aria-pressed="true"]{background:#f2ddd0;color:#733b35;border-color:#ad7669}
+html[data-theme="christmas"] .prompt-star,html[data-theme="christmas"] .prompt-star.saved{color:#944b46}
+html[data-theme="christmas"] .prompt-star:hover{background:#f2ead6;border-color:#c9b687}
+html[data-theme="christmas"] .set-undo-notice{background:#eef0df;border-color:#b6bd98;color:#36533f}
+html[data-theme="christmas"] #deckPicker{background:#fffaf0;border-color:#b7ae8b;color:#34533e}
+html[data-theme="christmas"] :is(.data-transfer h3,.special-thanks strong,.special-thanks h3){color:#34533e}
+html[data-theme="christmas"] :is(button,select,input):focus-visible{outline-color:#944b46}
+@media(max-width:760px){
+  html[data-theme="christmas"] body{background-attachment:scroll;background-position:60% top;background-size:auto 100vh;background-color:#f5eddd}
+}

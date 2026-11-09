@@ -74,7 +74,13 @@ Repository: https://github.com/ruruwu/skyloom
 
 Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修改其他專案的收藏與紀錄。資料仍只保存在目前瀏覽器的網站儲存空間。
 
-## 題庫
+## 外觀
+
+在 **Deck Settings → 外觀** 可切換「天空」與「聖誕節」。未曾選擇時先顯示聖誕節主題；選擇保存於獨立的 `skyloom.theme.v1`，不影響題庫啟用狀態、收藏或紀錄，也不依日期自動切換。外觀設定只保存在目前瀏覽器，不包含於收藏備份。
+
+原版 `style.css` 與 `skyloom-sky.jpg` 保留不變；節慶樣式獨立放在 `christmas.css`，由 `theme.js` 切換。聖誕背景 `skyloom-christmas.jpg` 為 Harri P 的冬季晨光雪林照片，依 Unsplash License 使用，頁尾會隨外觀顯示對應的照片來源。
+
+## 題庫內容
 
 正式題庫是 `everyday_prompt_bank_v2_zh_tw.json`，含 **17 個日常分類、720 個不重複詞彙**，另加聖誕節主題 100 詞（共 18 類、820 筆，跨分類允許相同詞彙）。頁面以此 JSON 為唯一題庫來源，並將每個分類轉成可瀏覽、收藏和抽取的牌組。天空背景圖 `skyloom-sky.jpg` 由 Engin Akyurt 拍攝，依 Unsplash License 使用；頁尾附照片與授權連結。
 
@@ -112,6 +118,7 @@ Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修�
 node --check app.js
 node --check skyloom-store.js
 node tests/christmas.test.js
+node tests/theme.test.js
 ```
 
 瀏覽器手動驗收流程：

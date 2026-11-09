@@ -6,6 +6,8 @@
   <meta name="description" content="Skyloom — Draw a word. Weave a world." />
   <title>Skyloom</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="christmas.css" />
+  <script src="theme.js"></script>
 </head>
 <body>
   <main class="table">
@@ -85,7 +87,8 @@
         <p class="bank-note">本頁收錄 18 個分類、820 筆繁體中文詞彙。每個詞都可以成為一個新世界的入口。</p>
       </section>
       <p>Your Skyloom collection stays in this browser only.<br>紀錄與收藏保存在目前的瀏覽器中；清除網站資料會一併移除。</p>
-      <p class="image-credit">天空照片由 <a href="https://unsplash.com/@enginakyurt" target="_blank" rel="noopener noreferrer">Engin Akyurt</a> 拍攝，刊載於 <a href="https://unsplash.com/photos/white-clouds-under-blue-sky-during-daytime-gJILnne_HFg" target="_blank" rel="noopener noreferrer">Unsplash</a>，依 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a> 使用。</p>
+      <p class="image-credit sky-credit">天空照片由 <a href="https://unsplash.com/@enginakyurt" target="_blank" rel="noopener noreferrer">Engin Akyurt</a> 拍攝，刊載於 <a href="https://unsplash.com/photos/white-clouds-under-blue-sky-during-daytime-gJILnne_HFg" target="_blank" rel="noopener noreferrer">Unsplash</a>，依 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a> 使用。</p>
+      <p class="image-credit christmas-credit" hidden>雪林照片由 <a href="https://unsplash.com/@haraldip" target="_blank" rel="noopener noreferrer">Harri P</a> 拍攝，刊載於 <a href="https://unsplash.com/photos/snow-covered-pine-trees-in-a-winter-forest-at-sunrise-L8p9qMMiCWs" target="_blank" rel="noopener noreferrer">Unsplash</a>，依 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a> 使用。</p>
     </footer>
   </main>
 
@@ -98,6 +101,11 @@
         </div>
         <button class="close-button" data-close="settingsDialog" aria-label="關閉">×</button>
       </div>
+      <div class="theme-control">
+        <label for="themePicker">外觀</label>
+        <select id="themePicker"><option value="sky">天空</option><option value="christmas">聖誕節</option></select>
+      </div>
+      <p id="themeStatus" class="theme-status" role="status"></p>
       <p class="sheet-intro">選擇要加入抽牌池的詞彙分類；設定也會套用到最愛與收藏分類。</p>
       <div class="deck-options" id="categoryOptions"></div>
       <label class="deck-picker-label" for="deckPicker">瀏覽詞彙分類</label>
