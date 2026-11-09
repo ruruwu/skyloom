@@ -24,7 +24,7 @@ const { createStore, cardKey, deckCards, poolFor, sample, sampleBalanced } = win
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 // Access storage lazily so restricted browser contexts produce a useful error.
-const store = createStore({ getItem: key => localStorage.getItem(key), setItem: (key, value) => localStorage.setItem(key, value) }, undefined, DATA.categories.map(category => category.id));
+const store = createStore({ getItem: key => localStorage.getItem(key), setItem: (key, value) => localStorage.setItem(key, value) }, undefined, DATA.categories.filter(category => category.defaultEnabled !== false).map(category => category.id));
 let drawSource = "all", drawMode = "random", collectionTab = "prompts", currentEntry = null, currentDeck = null;
 let lastRemovedSet = null;
 const groupNames = { general: "General", romance: "Romance", dark: "Dark", adult: "Adult" };
@@ -279,12 +279,11 @@ function renderArchive() {
 $("#drawOne").addEventListener("click", () => doDraw(1));
 $("#drawThree").addEventListener("click", () => doDraw(3));
 $$("[data-source]").forEach(node => node.addEventListener("click", () => setSource(node.dataset.source)));
-$$("[data-source]").forEach(node => node.addEventListener("click", () => setSource(node.dataset.source)));
 $$('[data-mode]').forEach(node => node.addEventListener("click", () => {
   drawMode = node.dataset.mode;
   $$('[data-mode]').forEach(modeButton => modeButton.setAttribute("aria-pressed", String(modeButton === node)));
   $("#distinctOption").hidden = drawMode !== "balanced";
-  $("#drawModeHint").textContent = drawMode === "random" ? "720 個詞彙混合抽取，每個詞機率相同。" : "先隨機選分類，再從分類中抽詞。";
+  $("#drawModeHint").textContent = drawMode === "random" ? "目前可用詞彙混合抽取，每個詞機率相同。" : "先隨機選分類，再從分類中抽詞。";
   refresh();
 }));
 $("#distinctCategories").addEventListener("change", refresh);

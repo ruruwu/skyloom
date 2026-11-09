@@ -1,4 +1,4 @@
-﻿# Skyloom
+# Skyloom
 
 **Draw a word. Weave a world.**
 抽取一個詞，編織一個世界。
@@ -7,7 +7,7 @@ Skyloom 是一個以天空為靈感的詞彙抽牌工具，適合寫作、繪畫
 
 Repository: https://github.com/ruruwu/skyloom
 
-本版使用 `everyday_prompt_bank_v2_zh_tw.json`，收錄 17 個分類、720 個繁體中文詞彙。保留單詞最愛、牌組收藏、分類收藏與抽牌紀錄功能。使用純 HTML、CSS 與 JavaScript，無須安裝套件或建立帳號。
+本版使用 `everyday_prompt_bank_v2_zh_tw.json`，收錄 17 個日常分類（720 詞）及聖誕節主題（100 詞），合計 18 個分類、820 筆詞彙。保留單詞最愛、牌組收藏、分類收藏與抽牌紀錄功能。使用純 HTML、CSS 與 JavaScript，無須安裝套件或建立帳號。
 
 ## 開始使用
 
@@ -33,9 +33,11 @@ Repository: https://github.com/ruruwu/skyloom
 
 不同次抽牌仍可能抽到相同詞。「從最愛抽今天題目」會在每次點擊時重新隨機抽取，並非每日固定一題。收藏分類也能直接從「我的收藏 → 收藏分類」抽牌，不必先將其中每個詞加入最愛。
 
-在 **Deck Settings** 中調整 17 個詞彙分類，設定會自動保存，並套用到所有抽牌來源。新使用者預設開啟全部分類：
+在 **Deck Settings** 中調整 18 個詞彙分類，設定會自動保存，並套用到所有抽牌來源。新使用者預設開啟以下 17 個日常分類：
 
 物品、情緒、顏色、場所、天氣、感官、自然、動作、時間、形狀與材質、食物、服飾、動物、植物、職業、交通工具、抽象概念。
+
+「聖誕節（Christmas）」為 `c18`，完整收錄 `christmas_3tag_100.txt` 的 100 詞，預設關閉。可在同一分類清單自行啟用，與其他分類混合抽取。選擇沿用 localStorage 的 `groups` 陣列保存；舊設定沒有 `c18` 時保持關閉，不重設其他分類，也不依日期切換。
 
 介面會顯示目前可抽的詞數。若已收藏詞彙卻無法抽出，可先檢查分類是否開啟。
 
@@ -62,7 +64,7 @@ Repository: https://github.com/ruruwu/skyloom
 - 紀錄、收藏與設定存放在目前瀏覽器的 `localStorage`，不會由程式上傳或跨裝置同步。
 - 清除瀏覽器網站資料會移除收藏；換瀏覽器、搬移本機 HTML，或改用不同網址時，不一定能讀到原有資料。
 - 優先使用有效的 `skyloom.library.v1`，包括尚未帶有遷移標記的空白收藏，不自動合併舊資料。尚無新版資料時，依序從 `creativeArcana.library.v3`、`creativeArcana.recovery.original.v1` 篩出 Skyloom 資料；前者解析失敗或沒有有效 Skyloom 內容時，繼續檢查後者。兩個來源均為唯讀。沿用既有分類 ID 與格式驗證；有效分類設定也算可復原內容，但預設分類不算。復原或初始化結果與 `migrationVersion: 1` 一起寫入，失敗不標記完成，可重新載入重試。新版 key 損壞時保留原文並暫停儲存，避免覆寫。
-- 載入 SL、自動遷移及手動匯入都只接受目前 Skyloom 分類 ID（`c01`～`c17`）及有效資料格式；非 Skyloom 或損壞的項目會排除。牌組或紀錄只要包含非 Skyloom 或損壞的卡片，就整筆排除。缺少的 categoryId 會依 deckId 補齊，不一致的 categoryId 會排除。JSON 無法解析或頂層資料結構不完整時，會暫停儲存以保護來源資料；自動遷移寫入失敗不會標記完成，下次開啟會重試。
+- 載入 SL、自動遷移及手動匯入都只接受目前 Skyloom 分類 ID（`c01`～`c18`）及有效資料格式；非 Skyloom 或損壞的項目會排除。牌組或紀錄只要包含非 Skyloom 或損壞的卡片，就整筆排除。缺少的 categoryId 會依 deckId 補齊，不一致的 categoryId 會排除。JSON 無法解析或頂層資料結構不完整時，會暫停儲存以保護來源資料；自動遷移寫入失敗不會標記完成，下次開啟會重試。
 - 在 **我的收藏 → 資料備份與搬移** 可下載 JSON 備份，或合併匯入備份中的 Skyloom 資料。若同一網站來源仍有 `creativeArcana.library.v3`，下載檔會另外包含該 key 的完整內容以供救援；手動匯入仍會忽略 legacyData／legacyRaw。匯入只有 Arcana 分類設定時會保留目前設定。
 - 若要跨網址搬移，請先在舊網站匯出其儲存資料 JSON，再於 Skyloom 匯入。瀏覽器不允許不同網站直接讀取彼此的 `localStorage`；舊網站需要提供匯出功能。
 - 備份檔包含收藏與抽卡紀錄，請妥善保管；Skyloom 不會上傳備份。
@@ -74,7 +76,7 @@ Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修�
 
 ## 題庫
 
-正式題庫是 `everyday_prompt_bank_v2_zh_tw.json`，含 **17 個分類、720 個不重複詞彙**。頁面以此 JSON 為唯一題庫來源，並將每個分類轉成可瀏覽、收藏和抽取的牌組。天空背景圖 `skyloom-sky.jpg` 由 Engin Akyurt 拍攝，依 Unsplash License 使用；頁尾附照片與授權連結。
+正式題庫是 `everyday_prompt_bank_v2_zh_tw.json`，含 **17 個日常分類、720 個不重複詞彙**，另加聖誕節主題 100 詞（共 18 類、820 筆，跨分類允許相同詞彙）。頁面以此 JSON 為唯一題庫來源，並將每個分類轉成可瀏覽、收藏和抽取的牌組。天空背景圖 `skyloom-sky.jpg` 由 Engin Akyurt 拍攝，依 Unsplash License 使用；頁尾附照片與授權連結。
 
 ## 專案結構
 
@@ -84,7 +86,7 @@ Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修�
 ├── style.css                  # 天空色系、卡片、收藏清單與響應式樣式
 ├── app.js                     # JSON 載入、抽牌互動與收藏介面
 ├── skyloom-store.js           # 儲存、分類篩選與兩種抽樣規則
-├── everyday_prompt_bank_v2_zh_tw.json # 17 類、720 個詞彙
+├── everyday_prompt_bank_v2_zh_tw.json # 18 類、820 筆詞彙
 └── README.md
 ```
 
@@ -109,6 +111,7 @@ Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修�
 ```sh
 node --check app.js
 node --check skyloom-store.js
+node tests/christmas.test.js
 ```
 
 瀏覽器手動驗收流程：

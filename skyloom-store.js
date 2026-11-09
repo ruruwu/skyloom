@@ -5,7 +5,7 @@
   const RECOVERY_KEY = "creativeArcana.recovery.original.v1";
   const YEAR = 365 * 24 * 60 * 60 * 1000;
   const GROUPS = ["general", "romance", "dark", "adult"];
-  const skyloomId = id => typeof id === "string" && /^c(?:0[1-9]|1[0-7])$/.test(id);
+  const skyloomId = id => typeof id === "string" && /^c(?:0[1-9]|1[0-8])$/.test(id);
   const cardKey = card => JSON.stringify([card.deckId, card.number, card.prompt]);
   const validCard = card => card && typeof card.deckId === "string" && typeof card.prompt === "string" && typeof card.source === "string" && GROUPS.includes(card.group) && Number.isFinite(card.number);
   const validEntry = entry => entry && typeof entry.id === "string" && Number.isFinite(Date.parse(entry.date)) && Array.isArray(entry.cards) && entry.cards.length > 0 && entry.cards.every(validCard);
