@@ -82,6 +82,8 @@ Skyloom 使用獨立的 `skyloom.library.v1` 儲存資料，不會讀取或修�
 
 ## 題庫內容
 
+分享封面提供 `share-sky.jpg` 與 `share-christmas.jpg`（1200 × 630）。目前 `index.html` 的 Open Graph 與 Twitter 分享資訊使用聖誕版；節慶結束後可將兩個 image 網址改為 `share-sky.jpg`，並同步更新 image:alt 與分享簡介。分享縮圖為固定資訊，不跟隨瀏覽器外觀設定。平台可能快取舊縮圖。兩張封面沿用上述照片，來源與授權見頁尾；可在有 Pillow 及 Windows 字型的環境執行 `python tests/generate-share-covers.py` 重新產生。
+
 正式題庫是 `everyday_prompt_bank_v2_zh_tw.json`，含 **17 個日常分類、720 個不重複詞彙**，另加聖誕節主題 100 詞（共 18 類、820 筆，跨分類允許相同詞彙）。頁面以此 JSON 為唯一題庫來源，並將每個分類轉成可瀏覽、收藏和抽取的牌組。天空背景圖 `skyloom-sky.jpg` 由 Engin Akyurt 拍攝，依 Unsplash License 使用；頁尾附照片與授權連結。
 
 ## 專案結構
