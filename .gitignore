@@ -1,0 +1,22 @@
+# Local editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+
+# Temporary output and dependency caches
+node_modules/
+*.log
+*.tmp
+*.swp
+*~
+coverage/
+
+# Accidental terminal help export
+/t.json slall.json

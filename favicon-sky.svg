@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Skyloom 天空</title>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#174d67"/>
+      <stop offset="1" stop-color="#589fb7"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#sky)"/>
+  <path d="M46 13v10m-5-5h10" stroke="#f7d99b" stroke-width="3" stroke-linecap="round"/>
+  <path d="M15 45a8 8 0 0 1 1-16 12 12 0 0 1 23-2 9 9 0 1 1 5 18Z" fill="#f4fcff"/>
+</svg>

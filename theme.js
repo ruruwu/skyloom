@@ -6,12 +6,16 @@
     const saved = localStorage.getItem(KEY);
     if (saved === "sky" || saved === "christmas") theme = saved;
   } catch { /* The theme still works when browser storage is unavailable. */ }
-  document.documentElement.dataset.theme = theme;
+  function applyTheme() {
+    document.documentElement.dataset.theme = theme;
+    document.getElementById("themeFavicon").setAttribute("href", `favicon-${theme}.svg`);
+  }
+  applyTheme();
   document.addEventListener("DOMContentLoaded", () => {
     const picker = document.getElementById("themePicker");
     const status = document.getElementById("themeStatus");
     function apply() {
-      document.documentElement.dataset.theme = theme;
+      applyTheme();
       picker.value = theme;
       document.querySelector(".sky-credit").hidden = theme !== "sky";
       document.querySelector(".christmas-credit").hidden = theme !== "christmas";
